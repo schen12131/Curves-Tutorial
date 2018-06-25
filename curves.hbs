@@ -26,7 +26,7 @@ slug: learn/
       <h2> Arcs </h2>
 
       <p>
-      Arcs are the simplest curves to draw. Processing defines an arc as a section of an ellipse. You call the function with these parameters:
+      Arcs are the simplest curves to draw, it is defined an arc as a section of an ellipse. You call the function with these parameters:
       </p>
 
       <p>
@@ -34,19 +34,7 @@ slug: learn/
       </p>
 
       <p>
-        <ul>
-          <li>x: x-coordinate of the arc's ellipse</li>
-          <li>y: y-coordinate of the arc's ellipse</li>
-          <li>w: width of the arc's ellipse by default</li>
-          <li>h: height of the arc's ellipse by default</li>
-          <li>start: angle to start the arc, specified in radians</li>
-          <li>stop: angle to stop the arc, specified in radians</li>
-          <li>mode: optional parameter to determine the way of drawing the arc. either CHORD, PIE or OPEN</li>
-        </ul>
-      </p>
-
-      <p>
-      The first four parameters define the boundary box for your arc and the next two are the angles for the arc. These angles are given in radians
+      The first four parameters (x,y,w,h) define the boundary box for your arc and the next two (start, stop), are the start and stop angles for the arc. These angles are given in radians
       and are measured clockwise with zero degrees pointing east and PI radians equals 180°.
       </p>
 
@@ -54,7 +42,7 @@ slug: learn/
       <script src="//toolness.github.io/p5.js-widget/p5-widget.js"></script>
       <script type="text/p5" data-autoplay>
         function draw() {
-          createCanvas(300, 300);
+          createCanvas(150,200);
           background(150);
           stroke(0);
           arc(35, 35, 50, 50, 0, PI / 2.0); // lower quarter circle
@@ -65,11 +53,12 @@ slug: learn/
         }
       </script>
 
-      <h3>Spline Curves</h3>
+      <h2>Spline Curves</h2>
 
       <p>
       Arcs are fine, but they’re plain. The next function, curve(), lets you draw curves that aren’t necessarily part of an arc. This function draws what is technically called a Rom-Catmull Spline.
       To draw the curve, you must specify the (x, y) coordinates of the points where the curve starts and ends. You must also specify two control points which determine the direction and amount of curvature.
+      The first two and last two parameters are the control points of the curve.
       A call to curve() uses these parameters:
       </p>
 
@@ -78,23 +67,11 @@ slug: learn/
       </p>
 
       <p>
-        <ul>
-          <li>cpx1, cpy1: Coordinates of the first control point</li>
-          <li>x1, y1:Coordinates of the curve’s starting point</li>
-          <li>x2, y2: Coordinates of the curve’s ending point</li>
-          <li>cpx2, cpy2: Coordinates of the second control point</li>
-        </ul>
-      </p>
-
-      <p>
       How do the control points affect the way the curve looks?
       </p>
 
       <p>
-        <ul>
-          <li>The tangent to the curve at the start point is parallel to the line between control point one and the end of the curve.</li>
-          <li>The tangent to the curve at the end point is parallel to the line between the start point and control point 2.</li>
-        </ul>
+        The tangent to the curve at the start point is parallel to the line between control point one and the end of the curve. The tangent to the curve at the end point is parallel to the line between the start point and control point 2.
       </p>
 
       <p>
@@ -102,11 +79,11 @@ slug: learn/
       </p>
 
       <!-- iframe for the curve and dragging points -->
-      <iframe src="http://p5js.org/assets/learn/curves/curve_ex.js" width="600px" height="400px">
+      <iframe src="http://p5js.org/p5/p5/js-website/src/assets/learn/curves/curve_ex.js" width="600px" height="400px">
       </iframe>
 
 
-      <h4>Continuous Spline Curves</h4>
+      <h2>Continuous Spline Curves</h2>
 
       <p>
       In isolation, a single curve() is not particularly appealing. To draw a continuous curve through several points, you are better off using the curveVertex() function.
@@ -116,10 +93,10 @@ slug: learn/
 
 
       <script type="text/p5"  data-autoplay>
-      var coords = [80, 80, 160, 120, 200, 200, 120, 240, 100, 300];
+      var coords = [50, 50, 80, 60, 100, 100, 60, 120, 50, 150];
 
       function setup() {
-        createCanvas(400, 400);
+        createCanvas(150, 200);
       }
 
       function draw() {
@@ -127,13 +104,13 @@ slug: learn/
         noFill();
         stroke(0);
         beginShape();
-        curveVertex(80,80);
-        curveVertex(80,80);
-        curveVertex(160,120);
-        curveVertex(200,200);
-        curveVertex(120,240);
-        curveVertex(100,300);
-        curveVertex(100,300);
+        curveVertex(40,40);
+        curveVertex(40,40);
+        curveVertex(80,60);
+        curveVertex(100,100);
+        curveVertex(60,120);
+        curveVertex(50,150);
+        curveVertex(50,150);
         endShape();
 
          for (var i = 0; i < coords.length; i+= 2){
@@ -146,22 +123,14 @@ slug: learn/
 
       <p>
         Though better than arcs, spline curves don’t seem to have those graceful, swooping curves that say “art.” For those, you need to draw Bézier curves with the bezier() function.
-        As with spline curves, the bezier() function has eight parameters, but the order is different:
+        As with spline curves, the bezier() function has eight parameters, but the order is different. The first first two and last two parameters are the start and end points While
+        while middle four points are the control points.
       </p>
 
       <p> bezier(x1, y1, cpx1, cpy1, cpx2, cpy2, x2, y2); </p>
 
-      <p>
-        <ul>
-          <li>x1, y1	Coordinates of the curve’s starting point</li>
-          <li>cpx1, cpy1	Coordinates of the first control point</li>
-          <li>cpx2, cpy2	Coordinates of the second control point</li>
-          <li>x2, y2	Coordinates of the curve’s ending point</li>
-        </ul>
-      </p>
-
       <!-- iframe of Bezier example -->
-      <iframe src="http://p5js.org/assets/learn/curves/bezier.js" width="600px" height="400px">
+      <iframe src="http://p5js.org/p5/p5/js-website/src/assets/learn/curves/bezier.js" width="600px" height="400px">
       </iframe>
 
       <p>
@@ -169,12 +138,12 @@ slug: learn/
       Imagine two poles and several rubber bands. The poles connect the control points to the endpoints of the curve. A rubber band connects the tops of the poles.
       Two more rubber bands connect the midpoints of the poles to the midpoint of the first rubber band. One more rubber band connects their midpoints.
       The center of that last rubber band is tied to the curve. This diagram helps to explain, the points can be moved to change the curve.
-      </P>
+    </p>
 
       <!-- image of bezier with lines -->
-      <img src="{{assets}}/learn/curves/bezier_with_lines.png">
+      <img src="http://p5js.org/p5/p5/js-website/src/assets/learn/curves/bezier_with_lines.png" style="width:150px;">
 
-      <h6> Continuous Bézier Curves<h6>
+      <h2> Continuous Bézier Curves<h2>
 
       <p>
       Just as curveVertex() allows you to make continuous spline curves, bezierVertex() lets you make continuous Bézier curves.
@@ -185,19 +154,15 @@ slug: learn/
       <p>bezierVertex(cpx1, cpy1, cpx2, cpy2, x, y);</P>
 
       <p>
-        <ul>
-          <li>cpx1, cpy1	Coordinates of the first control point</li>
-          <li>cpx2, cpy2	Coordinates of the second control point</li>
-          <li>x, y	The next point on the curve</li>
-        </ul>
-      </p>
-
-      <p>
       Here is a continuous Bézier curve, but it doesn’t join smoothly. In order to make two curves A and B smoothly continuous, the last control point of A,
       the last point of A, and the first control point of B have to be on a straight line.
       </P>
 
       <script type="text/p5"  data-autoplay>
+      function setup() {
+        createCanvas(150,200);
+      }
+
       function draw() {
         background(255);
         noFill();
@@ -215,7 +180,7 @@ slug: learn/
       }
       </script>
 
-      <h7>Summary<h7>
+      <h2>Summary<h2>
         <p>
           <ul>
             <li>Use arc() when you need a segment of a circle or an ellipse. You can’t make continuous arcs or use them as part of a shape.</li>
